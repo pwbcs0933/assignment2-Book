@@ -84,13 +84,47 @@
         <!-- Navbar (you can copy the existing navbar code) -->
         <!-- ... -->
 
-        <!-- Receipt content -->
+
         <div class="container">
             <h2>Payment Receipt</h2>
             <div id="receipt-content">
                 <!-- Receipt items will be displayed here using JavaScript -->
             </div>
         </div>
+
+        <!-- Payment form -->
+        <div class="container">
+            <h2>Payment Information</h2>
+            <form id="payment-form">
+                <!-- Add fields for payment information (e.g., credit card details) -->
+                <!-- For simplicity, let's add placeholders for card number, expiration date, and CVV -->
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="expirationDate">Expiration Date</label>
+                        <input type="text" class="form-control" id="expirationDate" placeholder="MM/YY">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" id="cvv" placeholder="123">
+                    </div>
+                </div>
+                <!-- Add a button to initiate payment -->
+                <button type="button" class="btn btn-primary" onclick="processPayment()">Submit Payment</button>
+            </form>
+        </div>
+
+        <script>
+            // Function to process the payment
+            function processPayment() {
+                // Perform the payment processing logic here
+                alert('Payment processed successfully!');
+                // You may redirect the user to a confirmation page or perform other actions
+            }
+        </script>
 
         <!-- JavaScript -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
