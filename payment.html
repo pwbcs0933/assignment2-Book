@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Receipt</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="/Assets/CSS/payment.css">
 </head>
 <body>
     <section>
@@ -23,13 +23,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" style="color: #ecf0f1;" href="index.html">Home</a>
+                        <a class="nav-link" style="color: #ecf0f1;" href="/index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color: #ecf0f1;" href="categories.html">Categories</a>
+                        <a class="nav-link" style="color: #ecf0f1;" href="/categories.html">Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="color: #ecf0f1;" href="cart.html">Card</a>
+                        <a class="nav-link" style="color: #ecf0f1;" href="/cart.html">Card</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="color: #ecf0f1;" href="payment.html">Payments</a>
@@ -49,75 +49,90 @@
     </nav>
     
     </section>
-
-
-
-    <style>
+<style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
         }
-    
-        .welcome-section {
-            background-color: #f7f7f7;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+
+        h2 {
+            color: #333;
             text-align: center;
-        }
-        .welcome-text {
-            font-size: 2.5rem;
-            color: #333333;
             margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: bold;
         }
-        @media (max-width: 767.98px) {
-                    .carousel-item img {
-                        max-height: 200px;
-                    }
-                }
-            
-                @media (min-width: 768px) and (max-width: 991.98px) {
-                    .carousel-item img {
-                        max-height: 300px;
-                    }
-                }
-            
-                @media (min-width: 992px) {
-                    .carousel-item img {
-                        max-height: 400px;
-                    }
-                }
+
+        #receipt-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .receipt-item {
+            margin-bottom: 10px;
+        }
     </style>
-    
-    <div class="welcome-section">
-        <h1 class="welcome-text">Payment Receipt</h1>
+</head>
 
+<body>
+    <section>
+        <!-- Navbar (you can copy the existing navbar code) -->
+        <!-- ... -->
 
-    <table>
-        <thead>
-            <tr>
-                <th>Books</th>
-                <th>Total Price</th>
-            </tr>
-        </thead>
-        <tbody id="bookDetailsBody">
-            <!-- Display book details dynamically here -->
+        <!-- Receipt content -->
+        <div class="container">
+            <h2>Payment Receipt</h2>
+            <div id="receipt-content">
+                <!-- Receipt items will be displayed here using JavaScript -->
+            </div>
+        </div>
 
-        </tbody>
-    </table>
+        <!-- JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <div id="totalAmount">Total Amount: $44.98</div>
+        <script>
+            // Function to fetch and display payment receipt
+            function displayPaymentReceipt() {
+                const receiptContent = document.getElementById('receipt-content');
+                receiptContent.innerHTML = '';
 
-    <a href="index.html" id="returnHome">Return to Home</a>
+                // Retrieve cart items from local storage
+                const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-</div>
-    <!-- JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="payment.js"></script>
+                // Display receipt items
+                cartItems.forEach((cartItem) => {
+                    const receiptItem = document.createElement('div');
+                    receiptItem.classList.add('receipt-item');
+                    receiptItem.innerHTML = `
+                        <p><strong>${cartItem.title}</strong></p>
+                        <p>Author: ${cartItem.author}</p>
+                        <p>Price: $${cartItem.price.toFixed(2)}</p>
+                        <p>Quantity: ${cartItem.quantity}</p>
+                        <hr>
+                    `;
+                    receiptContent.appendChild(receiptItem);
+                });
+
+                // Display total amount
+                const totalPrice = cartItems.reduce((total, item) => {
+                    return total + item.price * item.quantity;
+                }, 0);
+                const totalAmount = document.createElement('p');
+                totalAmount.innerHTML = `<strong>Total Amount: $${totalPrice.toFixed(2)}</strong>`;
+                receiptContent.appendChild(totalAmount);
+            }
+
+            // Call the function
+            displayPaymentReceipt();
+        </script>
+    </section>
 </body>
+
 </html>
